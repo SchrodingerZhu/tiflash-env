@@ -23,7 +23,7 @@ if sys.stdout.isatty():
 sysroot = path.abspath(path.dirname(__file__) + "/sysroot") + "/"
 bindir  = "{}bin/".format(sysroot)
 libdir  = "{}lib/".format(sysroot)
-triple  = "{}-unknown-linux-gnu".format(platform.processor())
+triple  = "{}-unknown-linux-gnu".format(platform.machine())
 shell   = os.getenv('SHELL', '/bin/sh')     
 env     = {
     "OPENSSL_ROOT_DIR"   : sysroot,

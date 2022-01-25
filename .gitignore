@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Python Cache
+__pycache__
+
+# Output
+/sysroot
