@@ -149,3 +149,7 @@ export OPENSSL_ROOT_DIR="/usr/local/opt/openssl"
 install_go
 install_curl
 install_ccache
+
+if [[ -e /usr/lib64/libtinfo.so.5 ]]; then
+    cp /usr/lib64/libtinfo.so.5 "$SYSROOT/lib"
+fi
