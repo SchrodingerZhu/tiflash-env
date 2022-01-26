@@ -48,8 +48,7 @@ env     = {
 }
 
 if platform.processor() == 'aarch64':
-    env["RUSTFLAGS"].append("-C")
-    env["RUSTFLAGS"].append("linker-arg=-Wl,-Bsymbolic")
+    env["RUSTFLAGS"] =  env["RUSTFLAGS"] + "-C linker-arg=-Wl,-Bsymbolic"
 
 for (i, j) in os.environ.items():
     if i not in env:
