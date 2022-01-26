@@ -117,15 +117,7 @@ mkdir -p $SYSROOT
 
 install_cmake 
 install_llvm
-
-export CC=clang
-export CXX=clang++
-export LD=ld.lld
-
 install_openssl
-
-export OPENSSL_ROOT_DIR="/usr/local/opt/openssl"
-
 install_go
 install_curl
 install_ccache

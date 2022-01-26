@@ -43,12 +43,12 @@ env     = {
     "CXXSTDLIB"          : "c++",
     "RUSTFLAGS"          : " ".join([
                                 "-C", 
-				"linker={}".format(path.abspath(path.dirname(__file__) + "/../scripts/tiflash-linker")), 
-				"-C", "linker-arg=-fuse-ld=lld"])
+				"linker={}".format(path.abspath(path.dirname(__file__) + "/tiflash-linker")), 
+				"-C", "link-arg=-fuse-ld=lld"])
 }
 
 if platform.processor() == 'aarch64':
-    env["RUSTFLAGS"] =  env["RUSTFLAGS"] + " -C linker-arg=-Wl,-Bsymbolic"
+    env["RUSTFLAGS"] =  env["RUSTFLAGS"] + " -C link-arg=-Wl,-Bsymbolic"
 
 for (i, j) in os.environ.items():
     if i not in env:
