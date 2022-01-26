@@ -20,7 +20,7 @@ tiflash-env/LICENSE:
 
 tiflash-env-$(ARCH).tar.xz: tiflash-env/prepare-sysroot.sh tiflash-env/loader tiflash-env/tiflash-linker tiflash-env/README.md tiflash-env/LICENSE
 	docker run --rm -v $(MOUNT):/tiflash-env hub.pingcap.net/tiflash/tiflash-llvm-base:$(ARCH) /tiflash-env/prepare-sysroot.sh
-	tar -I "xz -T 0 -e" -cvf tiflash-env-$(ARCH).tar.xz tiflash-env
+	tar -cvaf tiflash-env-$(ARCH).tar.xz tiflash-env
 
 clean:
 	rm -rf tiflash-env
