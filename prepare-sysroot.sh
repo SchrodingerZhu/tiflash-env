@@ -47,7 +47,7 @@ function install_llvm() {
         -DLLVM_ENABLE_LLD=ON \
         -DLIBOMP_LIBFLAGS="-lm" \
         -DCMAKE_INSTALL_PREFIX="$SYSROOT" \
-        -DCMAKE_INSTALL_RPATH='$ORIGIN/../lib' \
+        -DCMAKE_INSTALL_RPATH="\$ORIGIN/../lib/;\$ORIGIN/../lib/$(uname -m)-unknown-linux-gnu/" \
         ../llvm
 
     ninja
@@ -107,7 +107,7 @@ function install_ccache() {
       -DZSTD_FROM_INTERNET=ON \
       -DHIREDIS_FROM_INTERNET=ON \
       -DENABLE_TESTING=OFF \
-      -DCMAKE_INSTALL_RPATH='$ORIGIN/../lib' \
+      -DCMAKE_INSTALL_RPATH="\$ORIGIN/../lib/;\$ORIGIN/../lib/$(uname -m)-unknown-linux-gnu/" \
       -DCMAKE_INSTALL_PREFIX="$SYSROOT" \
       -GNinja
     ninja && ninja install
