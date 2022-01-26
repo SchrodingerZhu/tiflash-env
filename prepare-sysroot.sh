@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Copyright (C) PingCAP, Inc.
 
+set -ueox pipefail
+
 CMAKE_VERSION=3.22.1
 GO_VERSION="1.17"
 ARCH=$(uname -m)
@@ -20,25 +22,7 @@ function install_cmake() {
 
 function install_llvm() {
     git clone https://github.com/llvm/llvm-project --depth=1 -b llvmorg-$LLVM_VERSION
-   
-    mkdir -p llvm-project/build
-    cd llvm-project/build
 
-    cmake -DCMAKE_BUILD_TYPE=Release \
-        -GNinja \
-        -DLLVM_ENABLE_PROJECTS="clang;lld" \
-        -DLLVM_ENABLE_RUNTIMES="compiler-rt;libcxx;libcxxabi;libunwind" \
-        -DLLVM_TARGETS_TO_BUILD=Native \
-        -DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON \
-        -DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON \
-	-DCMAKE_INSTALL_PREFIX="$SYSROOT" \
-        ../llvm
-    
-    ninja
-    ninja install
-
-    cd ../..
-    rm -rf llvm-project/build
     mkdir -p llvm-project/build
     cd llvm-project/build
 
@@ -130,10 +114,6 @@ function install_ccache() {
 }
 
 mkdir -p $SYSROOT
-export PATH="${SYSROOT}/bin:${PATH}"
-export LIBRARY_PATH="${SYSROOT}/lib/x86_64-unknown-linux-gnu/:${LIBRARY_PATH}"
-export LD_LIBRARY_PATH="${SYSROOT}/lib/x86_64-unknown-linux-gnu/:${LD_LIBRARY_PATH}"
-export CPLUS_INCLUDE_PATH="${SYSROOT}/include/x86_64-unknown-linux-gnu/c++/v1/:${CPLUS_INCLUDE_PATH}"
 
 install_cmake 
 install_llvm
@@ -150,6 +130,7 @@ install_go
 install_curl
 install_ccache
 
+# some extra steps
 if [[ -e /usr/lib64/libtinfo.so.5 ]]; then
     cp /usr/lib64/libtinfo.so.5 "$SYSROOT/lib"
 fi
