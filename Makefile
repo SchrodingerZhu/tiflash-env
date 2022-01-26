@@ -24,4 +24,4 @@ tiflash-env-$(ARCH).tar.xz: tiflash-env/prepare-sysroot.sh tiflash-env/loader ti
 	tar -cvaf tiflash-env-$(ARCH).tar.xz tiflash-env
 
 clean:
-	rm -rf tiflash-env
+	rm -rf tiflash-env tiflash-env-$(ARCH).tar.xz
