@@ -1,5 +1,6 @@
 ARCH=$(shell uname -m)
 MOUNT=$(shell realpath tiflash-env)
+DOCKER_TAG=$(shell [[ "$(ARCH)" == "aarch64" ]] && echo "aarch64" || echo "amd64" )
 tiflash-env:
 	mkdir -p tiflash-env
 
@@ -19,7 +20,7 @@ tiflash-env/LICENSE:
 	cp LICENSE tiflash-env
 
 tiflash-env-$(ARCH).tar.xz: tiflash-env/prepare-sysroot.sh tiflash-env/loader tiflash-env/tiflash-linker tiflash-env/README.md tiflash-env/LICENSE
-	docker run --rm -v $(MOUNT):/tiflash-env hub.pingcap.net/tiflash/tiflash-llvm-base:$(ARCH) /tiflash-env/prepare-sysroot.sh
+	docker run --rm -v $(MOUNT):/tiflash-env hub.pingcap.net/tiflash/tiflash-llvm-base:$(DOCKER_TAG) /tiflash-env/prepare-sysroot.sh
 	tar -cvaf tiflash-env-$(ARCH).tar.xz tiflash-env
 
 clean:
